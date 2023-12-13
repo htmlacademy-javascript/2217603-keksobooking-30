@@ -1,3 +1,3 @@
-import { getAdverts } from './data.js';
+import { renderAdverts } from './render-adverts.js';
 
-getAdverts();
+renderAdverts();

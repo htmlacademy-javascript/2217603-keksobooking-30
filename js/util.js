@@ -17,9 +17,9 @@ const getRandomFloat = (object) =>
 const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
 
 // Создание массива с уникальными элементами
-const createArrayWithRandomUniqElements = (array) => {
+const getArrayOfRandomUniqElements = (array) => {
   const objects = new Set(Array.from({ length: getRandomInteger(0, array.length) }, () => getRandomArrayElement(array)));
   return Array.from(objects);
 };
 
-export { getRandomInteger, getRandomFloat, getRandomArrayElement, createArrayWithRandomUniqElements };
+export { getRandomInteger, getRandomFloat, getRandomArrayElement, getArrayOfRandomUniqElements };
