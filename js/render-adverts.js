@@ -8,9 +8,6 @@ const advertTemplate = document.querySelector('#card').content.querySelector('.p
 // Закрепляем массив объявлений за переменной
 const similarAdverts = getAdverts();
 
-// Создаем фрагмент, куда будем всё записывать
-const advertFragment = document.createDocumentFragment();
-
 // Создаем клон шаблона для корректировки данных
 const adWorkPiece = advertTemplate.cloneNode(true);
 
@@ -63,8 +60,7 @@ const drawAdvert = (data) => {
   renderPhotos(offer.photos);
   adWorkPiece.querySelector('.popup__avatar').src = `${author.avatar}`;
 
-  advertFragment.appendChild(adWorkPiece);
-  return advertFragment;
+  return adWorkPiece;
 };
 
 // Показ в контейнере для карты первого элемента массива созданных объявлений
