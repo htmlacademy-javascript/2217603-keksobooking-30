@@ -1,5 +1,13 @@
 import { getAdverts } from './get-adverts.js';
-import { TYPE_MATCHING } from './data.js';
+
+// Исходные данные по соответствию типов жилья
+const TYPE_MATCHING = {
+  'flat': 'Квартира',
+  'bungalow': 'Бунгало',
+  'house': 'Дом',
+  'palace': 'Дворец',
+  'hotel': 'Отель',
+};
 
 // Поиск подходящей разметки
 const mapContainer = document.querySelector('.map__canvas');
