@@ -2,9 +2,9 @@
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = adForm.querySelectorAll('.ad-form fieldset');
 const adFormSlider = adForm.querySelector('.ad-form__slider');
-const mapFilterContailner = document.querySelector('.map__filters');
-const mapFilters = mapFilterContailner.querySelectorAll('.map__filter');
-const mapFeatures = mapFilterContailner.querySelectorAll('.map__features');
+const mapFilterContainer = document.querySelector('.map__filters');
+const mapFilters = mapFilterContainer.querySelectorAll('.map__filter');
+const mapFeatures = mapFilterContainer.querySelectorAll('.map__features');
 
 // Функция, делающая форму неактивной
 const inactivateForm = () => {
@@ -17,7 +17,7 @@ const inactivateForm = () => {
 
 // Функция, делающая фильтры неактивными
 const inactivateFilters = () => {
-  mapFilterContailner.classList.add('map__filters--disabled');
+  mapFilterContainer.classList.add('map__filters--disabled');
   mapFilters.forEach((mapFilter) => {
     mapFilter.disabled = true;
   });
@@ -37,7 +37,7 @@ const activateForm = () => {
 
 // Функция, делающая фильтры активными
 const activateFilters = () => {
-  mapFilterContailner.classList.remove('map__filters--disabled');
+  mapFilterContainer.classList.remove('map__filters--disabled');
   mapFilters.forEach((mapFilter) => {
     mapFilter.disabled = false;
   });
