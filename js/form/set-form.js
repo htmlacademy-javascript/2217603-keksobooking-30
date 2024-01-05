@@ -1,3 +1,4 @@
+import { initSlider, updateSliderByPriceInput } from './slider-control.js';
 import { adFormChange, checkErrors } from './validate-form.js';
 import { sendForm } from './form-handler.js';
 
@@ -18,6 +19,8 @@ const setElementsState = (elements, state) => {
 const activateForm = () => {
   adForm.classList.remove('ad-form--disabled');
   setElementsState(adFormElements, false);
+  initSlider();
+  updateSliderByPriceInput();
   adFormChange();
   checkErrors();
   sendForm();
