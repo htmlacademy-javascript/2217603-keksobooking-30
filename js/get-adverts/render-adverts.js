@@ -1,4 +1,4 @@
-import { getAdverts } from './get-adverts.js';
+import { getAdverts } from './generate-adverts.js';
 
 // Исходные данные по соответствию типов жилья
 const TYPE_MATCHING = {

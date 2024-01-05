@@ -1,6 +1,5 @@
-import { renderAdverts } from './render-adverts.js';
-import { inactivateForm, inactivateFilters, activateForm, activateFilters } from './form.js';
-import { renderFormValidate } from './validate-form.js';
+import { renderAdverts } from './get-adverts/render-adverts.js';
+import { activateForm, activateFilters, inactivateForm, inactivateFilters } from './form/set-form.js';
 
 renderAdverts();
 
@@ -9,4 +8,4 @@ inactivateFilters();
 activateForm();
 activateFilters();
 
-renderFormValidate();
+// renderFormValidate();
