@@ -1,5 +1,5 @@
-import { getRandomInteger, getRandomFloat, getRandomArrayElement, getArrayOfRandomUniqElements } from './util.js';
-import { LAT, LNG, TITLES, TYPES, TIMES, FEATURES, DESCRIPTIONS, PHOTO_URL } from './data.js';
+import { getRandomInteger, getRandomFloat, getRandomArrayElement, getArrayOfRandomUniqElements } from '../util.js';
+import { LAT, LNG, TITLES, TYPES, TIMES, FEATURES, DESCRIPTIONS, PHOTO_URL } from '../data.js';
 
 // Изначальные данные
 const ADVERT_OBJECT_COUNT = 10;

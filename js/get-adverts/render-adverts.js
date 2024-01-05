@@ -1,5 +1,13 @@
-import { getAdverts } from './get-adverts.js';
-import { TYPE_MATCHING } from './data.js';
+import { getAdverts } from './generate-adverts.js';
+
+// Исходные данные по соответствию типов жилья
+const TYPE_MATCHING = {
+  'flat': 'Квартира',
+  'bungalow': 'Бунгало',
+  'house': 'Дом',
+  'palace': 'Дворец',
+  'hotel': 'Отель',
+};
 
 // Поиск подходящей разметки
 const mapContainer = document.querySelector('.map__canvas');
@@ -7,9 +15,6 @@ const advertTemplate = document.querySelector('#card').content.querySelector('.p
 
 // Закрепляем массив объявлений за переменной
 const similarAdverts = getAdverts();
-
-// Создаем фрагмент, куда будем всё записывать
-const advertFragment = document.createDocumentFragment();
 
 // Создаем клон шаблона для корректировки данных
 const adWorkPiece = advertTemplate.cloneNode(true);
@@ -63,8 +68,7 @@ const drawAdvert = (data) => {
   renderPhotos(offer.photos);
   adWorkPiece.querySelector('.popup__avatar').src = `${author.avatar}`;
 
-  advertFragment.appendChild(adWorkPiece);
-  return advertFragment;
+  return adWorkPiece;
 };
 
 // Показ в контейнере для карты первого элемента массива созданных объявлений

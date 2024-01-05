@@ -59,12 +59,4 @@ const PHOTO_URL = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const TYPE_MATCHING = {
-  'flat': 'Квартира',
-  'bungalow': 'Бунгало',
-  'house': 'Дом',
-  'palace': 'Дворец',
-  'hotel': 'Отель',
-};
-
-export {LAT, LNG, TITLES, TYPES, TIMES, FEATURES, DESCRIPTIONS, PHOTO_URL, TYPE_MATCHING};
+export {LAT, LNG, TITLES, TYPES, TIMES, FEATURES, DESCRIPTIONS, PHOTO_URL };
