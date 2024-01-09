@@ -1,5 +1,6 @@
 import { validatePristine, resetPristine } from './validate-form.js';
-import {resetSlider} from './slider-control.js';
+import { resetSlider } from './slider-control.js';
+import { renderMainPinMarkerCoordinates, resetMap } from '../map/render-map.js';
 
 // Находим нужную разметку
 const adForm = document.querySelector('.ad-form');
@@ -11,7 +12,7 @@ const timeout = adForm.querySelector('#timeout');
 const description = adForm.querySelector('#description');
 const price = adForm.querySelector('#price');
 const features = adForm.querySelectorAll('.features__checkbox');
-// const address = adForm.querySelector('#address');
+const address = adForm.querySelector('#address');
 const title = adForm.querySelector('#title');
 
 // Устанавливаем начальные значения
@@ -35,7 +36,7 @@ const resetFeatures = () => features.forEach(
 const resetAdForm = () => {
   adForm.reset();
   resetPristine();
-  // resetMap(address);
+  resetMap(address);
   resetSlider();
   price.min = defaultPriceMin;
   price.placeholder = defaultPricePlaceholder;
@@ -65,8 +66,9 @@ const onFormReset = (evt) => {
 
 // Что происходит при отправке формы
 const sendForm = () => {
+  renderMainPinMarkerCoordinates(address);
   adForm.addEventListener('submit', onFormSubmit);
   adForm.addEventListener('reset', onFormReset);
 };
 
-export {sendForm};
+export { sendForm };

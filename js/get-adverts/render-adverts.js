@@ -1,5 +1,3 @@
-import { getAdverts } from './generate-adverts.js';
-
 // Исходные данные по соответствию типов жилья
 const TYPE_MATCHING = {
   'flat': 'Квартира',
@@ -10,17 +8,10 @@ const TYPE_MATCHING = {
 };
 
 // Поиск подходящей разметки
-const mapContainer = document.querySelector('.map__canvas');
 const advertTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-// Закрепляем массив объявлений за переменной
-const similarAdverts = getAdverts();
-
-// Создаем клон шаблона для корректировки данных
-const adWorkPiece = advertTemplate.cloneNode(true);
-
 // Создание списка удобств с нужным набором удобств
-const renderFeatures = (features) => {
+const renderFeatures = (features, adWorkPiece) => {
   const adFeaturesList = adWorkPiece.querySelector('.popup__features');
   const adFeaturesItems = adFeaturesList.querySelectorAll('.popup__feature');
   adFeaturesItems.forEach((adFeaturesItem) => {
@@ -33,7 +24,7 @@ const renderFeatures = (features) => {
 };
 
 // Проверка на случай отсутствия описания
-const isOfferDescription = (description) => {
+const isOfferDescription = (description, adWorkPiece) => {
   if (description) {
     adWorkPiece.querySelector('.popup__description').textContent = description;
   } else {
@@ -42,7 +33,7 @@ const isOfferDescription = (description) => {
 };
 
 // Создание элемента фото с нужным src
-const renderPhotos = (photos) => {
+const renderPhotos = (photos, adWorkPiece) => {
   const adPhotosList = adWorkPiece.querySelector('.popup__photos');
   const adPhotosItem = adPhotosList.querySelector('.popup__photo');
   const adPhotoTemplate = adPhotosItem.cloneNode(true);
@@ -55,25 +46,23 @@ const renderPhotos = (photos) => {
 };
 
 // Отрисовка объявления по тех заданию
-const drawAdvert = (data) => {
+const renderAdvert = (data) => {
   const { author, offer } = data;
+  // Создаем клон шаблона для корректировки данных
+  const adWorkPiece = advertTemplate.cloneNode(true);
+  // Заполняем
   adWorkPiece.querySelector('.popup__title').textContent = `${offer.title}`;
   adWorkPiece.querySelector('.popup__text--address').textContent = `${offer.address}`;
   adWorkPiece.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
   adWorkPiece.querySelector('.popup__type').textContent = TYPE_MATCHING[offer.type];
   adWorkPiece.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   adWorkPiece.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  renderFeatures(offer.features);
-  isOfferDescription (offer.description);
-  renderPhotos(offer.photos);
+  renderFeatures(offer.features, adWorkPiece);
+  isOfferDescription(offer.description, adWorkPiece);
+  renderPhotos(offer.photos, adWorkPiece);
   adWorkPiece.querySelector('.popup__avatar').src = `${author.avatar}`;
 
   return adWorkPiece;
 };
 
-// Показ в контейнере для карты первого элемента массива созданных объявлений
-const renderAdverts = () => {
-  mapContainer.appendChild(drawAdvert(similarAdverts[0]));
-};
-
-export { renderAdverts };
+export { renderAdvert };

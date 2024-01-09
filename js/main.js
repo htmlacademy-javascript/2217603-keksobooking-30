@@ -1,11 +1,7 @@
-import { renderAdverts } from './get-adverts/render-adverts.js';
-import { activateForm, activateFilters, inactivateForm, inactivateFilters } from './form/set-form.js';
-
-renderAdverts();
+import { inactivateForm, inactivateFilters } from './form/set-form.js';
+import { renderMap } from './map/render-map.js';
 
 inactivateForm();
 inactivateFilters();
-activateForm();
-activateFilters();
 
-// renderFormValidate();
+renderMap();
