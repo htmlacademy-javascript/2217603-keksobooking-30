@@ -1,4 +1,4 @@
-import { activateForm, activateFilters } from '../form/set-form.js';
+import { activateForm } from '../form/set-form.js';
 import { renderAdvert } from '../get-adverts/render-adverts.js';
 import { getAdverts } from '../get-adverts/generate-adverts.js';
 
