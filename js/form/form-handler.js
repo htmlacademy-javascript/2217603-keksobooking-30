@@ -1,6 +1,14 @@
 import { validatePristine, resetPristine } from './validate-form.js';
 import { resetSlider } from './slider-control.js';
 import { renderMainPinMarkerCoordinates, resetMap } from '../map/render-map.js';
+import { showMessageError, showMessageSuccess } from './form-message.js';
+import { sendData } from '../api.js';
+
+// Текст кнопки отправки формы, для предотвращения многократных отправок
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
+};
 
 // Находим нужную разметку
 const adForm = document.querySelector('.ad-form');
@@ -14,6 +22,7 @@ const price = adForm.querySelector('#price');
 const features = adForm.querySelectorAll('.features__checkbox');
 const address = adForm.querySelector('#address');
 const title = adForm.querySelector('#title');
+const submitButton = adForm.querySelector('.ad-form__submit');
 
 // Устанавливаем начальные значения
 const defaultType = type.value;
@@ -31,6 +40,17 @@ const resetFeatures = () => features.forEach(
     feature.checked = false;
   }
 );
+
+// Блокировка и разблокировка кнопки отправки
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
 
 // Что происходит при обновлении формы
 const resetAdForm = () => {
@@ -53,8 +73,17 @@ const resetAdForm = () => {
 
 // Функция запуска валидатора
 const onFormSubmit = (evt) => {
-  if (!validatePristine()) {
-    evt.preventDefault();
+  evt.preventDefault();
+  if (validatePristine()) {
+    blockSubmitButton();
+    sendData(new FormData(evt.target))
+      .then(showMessageSuccess)
+      .catch(
+        (err) => {
+          showMessageError(err.message);
+        }
+      )
+      .finally(unblockSubmitButton);
   }
 };
 
