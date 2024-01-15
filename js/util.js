@@ -1,25 +1,20 @@
-// Изначальные данные
-const DECIMAL_PLACES_COUNT = 5;
+// Количество миллисекунд показа сообщения об ошибке
+const DATA_ERROR_SHOW_TIME = 5000;
 
-// Функция получения случайного целого числа из переданного диапазона
-const getRandomInteger = (a = 0, b = 50) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
+// Шаблон сообщения об ошибке загрузки объявлений с сервера
+const dataErrorTemplate = document.querySelector('#data-error')
+  .content.querySelector('.data-error');
+
+// Показывает ошибку загрузки
+const showDataError = () => {
+  const dataError = dataErrorTemplate.cloneNode(true);
+  document.body.append(dataError);
+  setTimeout(() => {
+    dataError.remove();
+  }, DATA_ERROR_SHOW_TIME);
 };
 
-// Получение случайного дробного числа
-const getRandomFloat = (object) =>
-  (Math.random() * (object.max - object.min) + object.min).toFixed(DECIMAL_PLACES_COUNT);
+// Определяет, является ли кнопка Esc
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-// Получение случайного элемента массива
-const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
-
-// Создание массива с уникальными элементами
-const getArrayOfRandomUniqElements = (array) => {
-  const objects = new Set(Array.from({ length: getRandomInteger(0, array.length) }, () => getRandomArrayElement(array)));
-  return Array.from(objects);
-};
-
-export { getRandomInteger, getRandomFloat, getRandomArrayElement, getArrayOfRandomUniqElements };
+export { isEscapeKey, showDataError };

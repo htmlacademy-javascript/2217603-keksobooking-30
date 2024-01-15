@@ -1,6 +1,5 @@
 import { activateForm } from '../form/set-form.js';
 import { renderAdvert } from '../get-adverts/render-adverts.js';
-import { getAdverts } from '../get-adverts/generate-adverts.js';
 
 // Изначальные данные
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -28,9 +27,6 @@ const CITY_CENTER = {
 
 // Нужная разметка
 const mapContainer = document.querySelector('.map__canvas');
-
-// Выводим массив с объявлениями в отдельную переменную
-const similarAdverts = getAdverts();
 
 // Создаем карту
 const map = L.map(mapContainer);
@@ -77,15 +73,20 @@ const createMarker = (advert) => L.marker(advert.location, {
   .bindPopup(renderAdvert(advert));
 
 // Отрисовываем маркеры по массиву
-const renderMarkers = () => {
-  similarAdverts.forEach((advert) => createMarker(advert));
+const renderMarkers = (adverts) => {
+  adverts.forEach((advert) => createMarker(advert));
+};
+
+const setAdverts = async (data) => {
+  markersGroup.clearLayers();
+  const adverts = await structuredClone(data);
+  renderMarkers(adverts);
 };
 
 // Отрисовываем карту и активируем форму при загрузке карты
 const renderMap = () => {
   map.on('load', () => {
     activateForm();
-    renderMarkers();
   })
     .setView(CITY_CENTER, ZOOM);
 
@@ -102,4 +103,4 @@ const resetMap = (address) => {
   address.value = `${CITY_CENTER.lat.toFixed(DECIMAL_PLACES_COUNT)}, ${CITY_CENTER.lng.toFixed(DECIMAL_PLACES_COUNT)}`;
 };
 
-export { renderMap, renderMainPinMarkerCoordinates, resetMap };
+export { renderMap, renderMainPinMarkerCoordinates, resetMap, setAdverts };
