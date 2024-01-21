@@ -21,8 +21,8 @@ const iconConfig = {
   anchorY: 40,
 };
 const CITY_CENTER = {
-  lat: 35.682,
-  lng: 139.764,
+  lat: 35.67640,
+  lng: 139.76134,
 };
 
 // Нужная разметка

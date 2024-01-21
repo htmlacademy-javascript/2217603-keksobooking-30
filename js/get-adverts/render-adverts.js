@@ -15,7 +15,7 @@ const renderFeatures = (features, adWorkPiece) => {
   const adFeaturesList = adWorkPiece.querySelector('.popup__features');
   const adFeaturesItems = adFeaturesList.querySelectorAll('.popup__feature');
   adFeaturesItems.forEach((adFeaturesItem) => {
-    const isFeatures = features.some((feature) => adFeaturesItem.classList.contains(`popup__feature--${feature}`),
+    const isFeatures = features?.some((feature) => adFeaturesItem.classList.contains(`popup__feature--${feature}`),
     );
     if (!isFeatures) {
       adFeaturesItem.remove();

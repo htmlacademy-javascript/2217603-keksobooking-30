@@ -40,7 +40,9 @@ const showMessage = (message, buttonClass) => {
   document.body.append(message);
   document.body.addEventListener('click', onBodyClick);
   document.addEventListener('keydown', onMessageEscKeydown);
-  message.querySelector(buttonClass).addEventListener('click', onCloseButtonClick);
+  if(buttonClass) {
+    message.querySelector(buttonClass).addEventListener('click', onCloseButtonClick);
+  }
 };
 
 const showMessageError = () => {
@@ -48,7 +50,7 @@ const showMessageError = () => {
 };
 
 const showMessageSuccess = () => {
-  showMessage(messageSuccess, '.success__button');
+  showMessage(messageSuccess);
 };
 
 export { showMessageError, showMessageSuccess };
