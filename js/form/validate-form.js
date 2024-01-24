@@ -33,7 +33,7 @@ const adForm = document.querySelector('.ad-form');
 const inputs = adForm.querySelectorAll('input');
 const title = adForm.querySelector('#title');
 const typeSelect = adForm.querySelector('#type');
-const price = adForm.querySelector('#price');
+const priceSelect = adForm.querySelector('#price');
 const timeInSelect = adForm.querySelector('#timein');
 const timeOutSelect = adForm.querySelector('#timeout');
 const roomSelect = adForm.querySelector('#room_number');
@@ -78,7 +78,7 @@ const checkErrors = () => {
   );
   // Валидация максимальной цены
   pristine.addValidator(
-    price,
+    priceSelect,
     checkPriceMax,
     ERROR_MESSAGES.priceMax,
     1,
@@ -86,7 +86,7 @@ const checkErrors = () => {
   );
   // Валидация минимальной цены
   pristine.addValidator(
-    price,
+    priceSelect,
     checkPriceMin,
     ERROR_MESSAGES.priceMin,
     1,
@@ -103,16 +103,16 @@ const checkErrors = () => {
 };
 
 // Создает функцию вызова валидации и перезагрузки
-const validatePristine = () => pristine.validate();
+const validateForm = () => pristine.validate();
 const resetPristine = () => pristine.reset();
 
 // Проверяет цену на соответствие
-const validatePrice = () => pristine.validate(price);
+const validatePrice = () => pristine.validate(priceSelect);
 
 // Функция реакции на изменение типа жилья
 function onTypeSelectChange() {
-  price.placeholder = `Минимум ${PRICE.MIN[typeSelect.value]}`;
-  price.min = PRICE.MIN[typeSelect.value];
+  priceSelect.placeholder = `Минимум ${PRICE.MIN[typeSelect.value]}`;
+  priceSelect.min = PRICE.MIN[typeSelect.value];
   validatePrice();
 }
 
@@ -147,4 +147,4 @@ const adFormChange = () => adForm.addEventListener('change', (event) => {
   }
 });
 
-export { validatePristine, resetPristine, adFormChange, checkErrors, validatePrice };
+export { validateForm, resetPristine, adFormChange, checkErrors, validatePrice };

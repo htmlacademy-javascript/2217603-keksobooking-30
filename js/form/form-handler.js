@@ -1,14 +1,8 @@
-import { validatePristine, resetPristine } from './validate-form.js';
+import { validateForm, resetPristine } from './validate-form.js';
 import { resetSlider } from './slider-control.js';
 import { renderMainPinMarkerCoordinates, resetMap } from '../map/render-map.js';
-import { showMessageError, showMessageSuccess } from './form-message.js';
-import { sendData } from '../api.js';
-
-// Текст кнопки отправки формы, для предотвращения многократных отправок
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Публикую...'
-};
+import { sendData } from '../data/server-data.js';
+import { adFormChange, checkErrors } from './validate-form.js';
 
 // Находим нужную разметку
 const adForm = document.querySelector('.ad-form');
@@ -22,7 +16,7 @@ const price = adForm.querySelector('#price');
 const features = adForm.querySelectorAll('.features__checkbox');
 const address = adForm.querySelector('#address');
 const title = adForm.querySelector('#title');
-const submitButton = adForm.querySelector('.ad-form__submit');
+
 
 // Устанавливаем начальные значения
 const defaultType = type.value;
@@ -41,26 +35,16 @@ const resetFeatures = () => features.forEach(
   }
 );
 
-// Блокировка и разблокировка кнопки отправки
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
-};
-
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
-};
-
 // Что происходит при обновлении формы
 const resetAdForm = () => {
   adForm.reset();
   resetPristine();
   resetMap(address);
-  resetSlider();
+  // resetPictures();
   price.min = defaultPriceMin;
   price.placeholder = defaultPricePlaceholder;
   price.value = defaultPrice;
+  resetSlider();
   title.value = '';
   type.value = defaultType;
   roomNumber.value = defaultRoomNumber;
@@ -71,19 +55,11 @@ const resetAdForm = () => {
   resetFeatures();
 };
 
-// Функция запуска валидатора
+// Функция запуска валидатора при отправке формы
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-  if (validatePristine()) {
-    blockSubmitButton();
-    sendData(new FormData(evt.target))
-      .then(showMessageSuccess)
-      .catch(
-        (err) => {
-          showMessageError(err.message);
-        }
-      )
-      .finally(unblockSubmitButton);
+  if (validateForm() /*&& validateImage()*/) {
+    sendData(evt.target);
   }
 };
 
@@ -93,11 +69,17 @@ const onFormReset = (evt) => {
   resetAdForm();
 };
 
-// Что происходит при отправке формы
-const sendForm = () => {
+// Инициирует форму
+const initForm = () => {
+  adFormChange();
+  // choosenAvatar();
+  // choosenPhoto();
+  checkErrors();
+  adForm.reset();
+  resetPristine();
   renderMainPinMarkerCoordinates(address);
-  adForm.addEventListener('submit', onFormSubmit);
   adForm.addEventListener('reset', onFormReset);
+  adForm.addEventListener('submit', onFormSubmit);
 };
 
-export { sendForm };
+export { initForm, resetAdForm };

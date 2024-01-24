@@ -49,4 +49,4 @@ const updateSliderByPriceInput = () => price.addEventListener('input', onPriceIn
 // Обнуляет слайдер
 const resetSlider = () => slider.noUiSlider.reset();
 
-export {initSlider, updateSliderByPriceInput, resetSlider};
+export { initSlider, updateSliderByPriceInput, resetSlider };

@@ -30,9 +30,9 @@ const load = (route, errorText, method = Method.GET, body = null) =>
     });
 
 // Функция получения данных с сервера
-const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
+const getServerData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
 
 // Функция отправки данных на сервер
-const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
+const sendDataServer = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
 
-export { getData, sendData };
+export { getServerData, sendDataServer };
