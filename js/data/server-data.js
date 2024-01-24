@@ -1,6 +1,6 @@
 import { getServerData, sendDataServer } from './api.js';
-import { renderStatusMessage } from '../status-message.js';
-import { activateFilters, inactivateFilters } from '../set-activity.js';
+import { renderStatusMessage } from '../utilities/status-message.js';
+import { activateFilters, inactivateFilters } from '../utilities/set-activity.js';
 import { renderMarkers } from '../map/render-map.js';
 import { resetAdForm } from '../form/form-handler.js';
 
@@ -24,6 +24,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
+// Получение данных и что происходит при этом
 const getData = async () => {
   try {
     const adverts = await getServerData();
@@ -35,6 +36,7 @@ const getData = async () => {
   }
 };
 
+// Отправка данных и сопутствующие события
 const sendData = async (formElement) => {
   try {
     blockSubmitButton();

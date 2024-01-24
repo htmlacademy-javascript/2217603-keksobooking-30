@@ -1,7 +1,7 @@
 import { renderAdvert } from '../data/render-adverts.js';
-import { activateFilters, activateForm } from '../set-activity.js';
+import { activateFilters, activateForm } from '../utilities/set-activity.js';
 import { filterAdverts } from './filters.js';
-import { debounce } from '../util.js';
+import { debounce } from '../utilities/util.js';
 import { getData } from '../data/server-data.js';
 import { initForm } from '../form/form-handler.js';
 
@@ -34,7 +34,6 @@ const CITY_CENTER = {
 // Нужная разметка
 const mapContainer = document.querySelector('.map__canvas');
 const filtersForm = document.querySelector('.map__filters');
-// const addressForm = adForm.querySelector('#address');
 
 // Создаем карту
 const map = L.map(mapContainer);
@@ -126,6 +125,7 @@ const renderMap = () => {
   }).addTo(map);
 };
 
+// Обновляет карту с фильтрами
 const resetMap = (address) => {
   map.closePopup();
   mainPinMarker.setLatLng(CITY_CENTER);

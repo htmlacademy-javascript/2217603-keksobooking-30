@@ -1,4 +1,4 @@
-import { initSlider, updateSliderByPriceInput } from './form/slider-control.js';
+import { initSlider, updateSliderByPriceInput } from '../form/slider-control.js';
 
 // Поиск подходящей разметки
 const adForm = document.querySelector('.ad-form');

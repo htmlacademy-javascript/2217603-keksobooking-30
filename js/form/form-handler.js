@@ -1,8 +1,8 @@
-import { validateForm, resetPristine } from './validate-form.js';
+import { validateForm, resetPristine, adFormChange, checkErrors, validatePhoto } from './validate-form.js';
 import { resetSlider } from './slider-control.js';
 import { renderMainPinMarkerCoordinates, resetMap } from '../map/render-map.js';
 import { sendData } from '../data/server-data.js';
-import { adFormChange, checkErrors } from './validate-form.js';
+import { resetImages } from './image-upload.js';
 
 // Находим нужную разметку
 const adForm = document.querySelector('.ad-form');
@@ -16,7 +16,6 @@ const price = adForm.querySelector('#price');
 const features = adForm.querySelectorAll('.features__checkbox');
 const address = adForm.querySelector('#address');
 const title = adForm.querySelector('#title');
-
 
 // Устанавливаем начальные значения
 const defaultType = type.value;
@@ -40,7 +39,7 @@ const resetAdForm = () => {
   adForm.reset();
   resetPristine();
   resetMap(address);
-  // resetPictures();
+  resetImages();
   price.min = defaultPriceMin;
   price.placeholder = defaultPricePlaceholder;
   price.value = defaultPrice;
@@ -58,7 +57,7 @@ const resetAdForm = () => {
 // Функция запуска валидатора при отправке формы
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-  if (validateForm() /*&& validateImage()*/) {
+  if (validateForm() && validatePhoto()) {
     sendData(evt.target);
   }
 };
@@ -72,8 +71,6 @@ const onFormReset = (evt) => {
 // Инициирует форму
 const initForm = () => {
   adFormChange();
-  // choosenAvatar();
-  // choosenPhoto();
   checkErrors();
   adForm.reset();
   resetPristine();

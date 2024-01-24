@@ -31,6 +31,7 @@ const filterPrice = filtersForm.querySelector('#housing-price');
 const filterRooms = filtersForm.querySelector('#housing-rooms');
 const filterGuests = filtersForm.querySelector('#housing-guests');
 
+// Условия для фильтров
 const filterAdverts = (adverts, featuresList) => adverts
   .filter(({ offer }) => (filterType.value === DEFAULT_VALUE || offer.type === filterType.value))
   .filter(({ offer }) => (offer.price >= FILTER_PRICE_OPTIONS[filterPrice.value].min && offer.price <= FILTER_PRICE_OPTIONS[filterPrice.value].max))
