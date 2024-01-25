@@ -1,6 +1,4 @@
-import { initSlider, updateSliderByPriceInput } from './slider-control.js';
-import { adFormChange, checkErrors } from './validate-form.js';
-import { sendForm } from './form-handler.js';
+import { initSlider, updateSliderByPriceInput } from '../form/slider-control.js';
 
 // Поиск подходящей разметки
 const adForm = document.querySelector('.ad-form');
@@ -8,7 +6,7 @@ const mapFilters = document.querySelector('.map__filters');
 const adFormElements = adForm.childNodes;
 const mapFiltersElements = mapFilters.childNodes;
 
-// Функция установки элементу состояния disabled
+// Функция установки элементам состояния disabled
 const setElementsState = (elements, state) => {
   elements.forEach((element) => {
     element.disabled = state;
@@ -21,9 +19,6 @@ const activateForm = () => {
   setElementsState(adFormElements, false);
   initSlider();
   updateSliderByPriceInput();
-  adFormChange();
-  checkErrors();
-  sendForm();
 };
 
 // Функция, активирующая фильтры
