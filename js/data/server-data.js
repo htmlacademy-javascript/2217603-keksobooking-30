@@ -43,7 +43,6 @@ const sendData = async (formElement) => {
     await sendDataServer(new FormData(formElement));
     resetAdForm();
     renderStatusMessage('success');
-    unblockSubmitButton();
   } catch {
     renderStatusMessage('error');
   } finally {

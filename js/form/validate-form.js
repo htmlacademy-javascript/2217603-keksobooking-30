@@ -56,9 +56,9 @@ inputs.forEach((input) => {
 
 // Создаем начальные настройки классов для пристин
 const pristine = new Pristine(adForm, {
-  classTo: 'ad-form__element',
+  classTo: 'ad-form-validation',
   errorClass: 'ad-form__element--invalid',
-  errorTextParent: 'ad-form__element',
+  errorTextParent: 'ad-form-validation',
   errorTextClass: 'text-help',
 });
 
@@ -142,21 +142,21 @@ const resetPristine = () => pristine.reset();
 const validatePrice = () => pristine.validate(priceSelect);
 
 // Функция реакции на изменение типа жилья
-function onTypeSelectChange() {
+const onTypeSelectChange = () => {
   priceSelect.placeholder = `Минимум ${PRICE.MIN[typeSelect.value]}`;
   priceSelect.min = PRICE.MIN[typeSelect.value];
   validatePrice();
-}
+};
 
 // Функция реакции на изменение гостей/комнат
-function onRoomsAndGuestsSelectChange() {
+const onRoomsAndGuestsSelectChange = () => {
   pristine.validate(guestSelect);
-}
+};
 
 // Функция синхронизации времени
-function onTimeSelectChange(firstTime, secondTime) {
+const onTimeSelectChange = (firstTime, secondTime) => {
   firstTime.value = secondTime.value;
-}
+};
 
 // Запускает нужные функции по изменению селектов
 const adFormChange = () => adForm.addEventListener('change', (event) => {

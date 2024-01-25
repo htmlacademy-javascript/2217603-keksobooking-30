@@ -285,7 +285,7 @@ fieldset {
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: start;
+          align-items: center;
 }
 
 .ad-form-header__preview {
@@ -312,13 +312,7 @@ fieldset {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
   width: 150px;
-}
-
-.ad-form__field.ad-form__element {
-  min-height: auto;
-  font-size: inherit;
 }
 
 .ad-form-header__info {
@@ -1039,10 +1033,13 @@ fieldset {
   left: 0;
   top: 0;
   right: 0;
-  padding: 10px 3px;
-  font-size: 20px;
+  padding: 9px 3px;
+  font-size: 18px;
+  font-weight: 700;
   text-align: center;
-  background-color: #fd4d4b;
+  color: white;
+  background-color: #ff5635;
+  opacity: 0.9;
 }
 
 .visually-hidden {
