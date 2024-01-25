@@ -10,4 +10,7 @@ const debounce = (callback, timeoutDelay = RERENDER_DELAY) => {
   };
 };
 
-export { debounce };
+// Определяет, является ли кнопка Esc
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { debounce, isEscapeKey };
