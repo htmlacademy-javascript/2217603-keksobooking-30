@@ -39,10 +39,8 @@ const setCondition = (element, select) => {
 };
 
 const setConditionPrice = (element, select) => {
-  if (element >= FILTER_PRICE_OPTIONS[select.value].min && element <= FILTER_PRICE_OPTIONS[select.value].max
-  ) {
-    return true;
-  }
+  const { min, max } = FILTER_PRICE_OPTIONS[select.value];
+  return element >= min && element <= max;
 };
 
 const setConditionFeatures = (array) => {

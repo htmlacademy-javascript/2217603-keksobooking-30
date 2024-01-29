@@ -1,7 +1,7 @@
 import { renderAdvert } from '../data/render-adverts.js';
 import { activateFilters, activateForm } from '../utilities/set-activity.js';
 import { filtrateAdverts } from './filters.js';
-import { debounce } from '../utilities/util.js';
+import { throttle } from '../utilities/util.js';
 import { getData } from '../data/server-data.js';
 import { initForm } from '../form/form-handler.js';
 
@@ -95,7 +95,7 @@ const changeFilters = (() => {
   filtrateAdverts(currentsMarkers).forEach((data) => createSimilarMarker(data));
 });
 
-const onFilterChange = debounce(() => changeFilters());
+const onFilterChange = throttle(() => changeFilters());
 
 // Функция начала отрисовки маркеров по полученным данным
 const initSimilarMarkers = () => getData(DATA_URL, createMarkers);
