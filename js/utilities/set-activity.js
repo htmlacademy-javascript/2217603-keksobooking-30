@@ -27,16 +27,10 @@ const activateFilters = () => {
   setElementsState(mapFiltersElements, false);
 };
 
-// Функция, делающая форму неактивной
-const inactivateForm = () => {
-  adForm.classList.add('ad-form--disabled');
-  setElementsState(adFormElements, true);
-};
-
 // Функция, делающая фильтры неактивными
 const inactivateFilters = () => {
   mapFilters.classList.add('map__filters--disabled');
   setElementsState(mapFiltersElements, true);
 };
 
-export { activateForm, activateFilters, inactivateForm, inactivateFilters };
+export { activateForm, activateFilters, inactivateFilters };

@@ -31,18 +31,34 @@ const filterPrice = filtersForm.querySelector('#housing-price');
 const filterRooms = filtersForm.querySelector('#housing-rooms');
 const filterGuests = filtersForm.querySelector('#housing-guests');
 
-// Условия для фильтров
-const filterAdverts = (adverts, featuresList) => adverts
-  .filter(({ offer }) => (filterType.value === DEFAULT_VALUE || offer.type === filterType.value))
-  .filter(({ offer }) => (offer.price >= FILTER_PRICE_OPTIONS[filterPrice.value].min && offer.price <= FILTER_PRICE_OPTIONS[filterPrice.value].max))
-  .filter(({ offer }) => (filterRooms.value === DEFAULT_VALUE || offer.rooms === Number(filterRooms.value)))
-  .filter(({ offer }) => (filterGuests.value === DEFAULT_VALUE || offer.guests === Number(filterGuests.value)))
-  .filter(({ offer }) => (
-    featuresList.length === 0 || (offer.features && featuresList.every(
-      (feature) => offer.features.includes(feature))
-    ))
-  )
-  .slice(ADVERT_OBJECT_MIN, ADVERT_OBJECT_MAX);
+const setCondition = (element, select) => {
+  if (select.value !== DEFAULT_VALUE) {
+    return String(element) === select.value;
+  }
+  return true;
+};
 
+const setConditionPrice = (element, select) => {
+  if (element >= FILTER_PRICE_OPTIONS[select.value].min && element <= FILTER_PRICE_OPTIONS[select.value].max
+  ) {
+    return true;
+  }
+};
 
-export { filterAdverts };
+const setConditionFeatures = (array) => {
+  const inputFeatureChecked = document.querySelectorAll('input[name="features"]:checked');
+  if (!array || array.length === 0) {
+    return false;
+  }
+  return Array.from(inputFeatureChecked).every((feature) => array.includes(feature.value));
+};
+
+const filtrateAdverts = (adverts) => adverts.filter(({ offer }) =>
+  setCondition(offer.type, filterType)
+  && setCondition(offer.rooms, filterRooms)
+  && setCondition(offer.guests, filterGuests)
+  && setConditionPrice(offer.price, filterPrice)
+  && setConditionFeatures(offer.features)
+).slice(ADVERT_OBJECT_MIN, ADVERT_OBJECT_MAX);
+
+export { filtrateAdverts };

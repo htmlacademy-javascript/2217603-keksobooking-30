@@ -1,7 +1,7 @@
 import { getServerData, sendDataServer } from './api.js';
 import { renderStatusMessage } from '../utilities/status-message.js';
 import { activateFilters, inactivateFilters } from '../utilities/set-activity.js';
-import { renderMarkers } from '../map/render-map.js';
+import { createMarkers } from '../map/render-map.js';
 import { resetAdForm } from '../form/form-handler.js';
 
 // Текст кнопки отправки формы, для предотвращения многократных отправок
@@ -28,7 +28,7 @@ const unblockSubmitButton = () => {
 const getData = async () => {
   try {
     const adverts = await getServerData();
-    renderMarkers(adverts);
+    createMarkers(adverts);
     activateFilters();
   } catch {
     renderStatusMessage('data-error');
