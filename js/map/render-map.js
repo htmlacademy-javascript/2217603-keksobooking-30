@@ -1,6 +1,6 @@
 import { renderAdvert } from '../data/render-adverts.js';
 import { activateFilters, activateForm } from '../utilities/set-activity.js';
-import { filterAdverts } from './filters.js';
+import { filtrateAdverts } from './filters.js';
 import { debounce } from '../utilities/util.js';
 import { getData } from '../data/server-data.js';
 import { initForm } from '../form/form-handler.js';
@@ -38,11 +38,7 @@ const filtersForm = document.querySelector('.map__filters');
 // Создаем карту
 const map = L.map(mapContainer);
 
-// Пустая переменная для массива с данными
-let dataAdverts = [];
-
-// Переменные для отрисовки маркеров
-let markersList = Array.from(filtersForm.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
+// let markersList = Array.from(filtersForm.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
 let currentsMarkers;
 
 // Создаем иконку для главного маркера
@@ -89,26 +85,20 @@ const createSimilarMarker = (advert) => L.marker(advert.location, {
 // Отрисовывает маркеры по массиву (фильтрованному)
 const createMarkers = (adverts) => {
   currentsMarkers = adverts;
-  filterAdverts(currentsMarkers, markersList).forEach((point) => createSimilarMarker(point));
+  filtrateAdverts(currentsMarkers).forEach((advert) => createSimilarMarker(advert));
   activateFilters();
 };
 
 // Что происходит при изменении фильтров
-const onFilterChange = debounce(() => {
+const changeFilters = (() => {
   markersGroup.clearLayers();
-  markersList = Array.from(filtersForm.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
-  filterAdverts(currentsMarkers, markersList).forEach((data) => createSimilarMarker(data));
+  filtrateAdverts(currentsMarkers).forEach((data) => createSimilarMarker(data));
 });
+
+const onFilterChange = debounce(() => changeFilters());
 
 // Функция начала отрисовки маркеров по полученным данным
 const initSimilarMarkers = () => getData(DATA_URL, createMarkers);
-
-// Отрисовываем маркеры по массиву и ждем изменений на фильтры
-const renderMarkers = (adverts) => {
-  dataAdverts = adverts;
-  createMarkers(dataAdverts);
-  filtersForm.addEventListener('change', () => onFilterChange(adverts));
-};
 
 // Отрисовываем карту и активируем форму при загрузке карты
 const renderMap = () => {
@@ -132,13 +122,7 @@ const resetMap = (address) => {
   map.setView(CITY_CENTER, ZOOM);
   address.value = `${CITY_CENTER.lat.toFixed(DECIMAL_PLACES_COUNT)}, ${CITY_CENTER.lng.toFixed(DECIMAL_PLACES_COUNT)}`;
   filtersForm.reset();
-  onFilterChange();
-
-  if (dataAdverts.length !== 0) {
-    markersGroup.clearLayers();
-    createMarkers(dataAdverts);
-    filtersForm.reset();
-  }
+  changeFilters();
 };
 
-export { renderMap, renderMainPinMarkerCoordinates, renderMarkers, resetMap };
+export { renderMap, renderMainPinMarkerCoordinates, createMarkers, resetMap };

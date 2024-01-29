@@ -12,15 +12,19 @@ const advertTemplate = document.querySelector('#card').content.querySelector('.p
 
 // Создание списка удобств с нужным набором удобств
 const renderFeatures = (features, adWorkPiece) => {
-  const adFeaturesList = adWorkPiece.querySelector('.popup__features');
-  const adFeaturesItems = adFeaturesList.querySelectorAll('.popup__feature');
-  adFeaturesItems.forEach((adFeaturesItem) => {
-    const isFeatures = features?.some((feature) => adFeaturesItem.classList.contains(`popup__feature--${feature}`),
-    );
-    if (!isFeatures) {
-      adFeaturesItem.remove();
-    }
-  });
+  if (features) {
+    const adFeaturesList = adWorkPiece.querySelector('.popup__features');
+    const adFeaturesItems = adFeaturesList.querySelectorAll('.popup__feature');
+    adFeaturesItems.forEach((adFeaturesItem) => {
+      const isFeatures = features?.some((feature) => adFeaturesItem.classList.contains(`popup__feature--${feature}`),
+      );
+      if (!isFeatures) {
+        adFeaturesItem.remove();
+      }
+    });
+  } else {
+    adWorkPiece.querySelector('.popup__features').remove();
+  }
 };
 
 // Проверка на случай отсутствия описания
@@ -34,15 +38,19 @@ const isOfferDescription = (description, adWorkPiece) => {
 
 // Создание элемента фото с нужным src
 const renderPhotos = (photos, adWorkPiece) => {
-  const adPhotosList = adWorkPiece.querySelector('.popup__photos');
-  const adPhotosItem = adPhotosList.querySelector('.popup__photo');
-  const adPhotoTemplate = adPhotosItem.cloneNode(true);
-  adPhotosItem.remove();
-  photos?.forEach((photo) => {
-    const adPhotoClone = adPhotoTemplate.cloneNode(true);
-    adPhotoClone.src = `${photo}`;
-    adPhotosList.appendChild(adPhotoClone);
-  });
+  if (photos) {
+    const adPhotosList = adWorkPiece.querySelector('.popup__photos');
+    const adPhotosItem = adPhotosList.querySelector('.popup__photo');
+    const adPhotoTemplate = adPhotosItem.cloneNode(true);
+    adPhotosItem.remove();
+    photos?.forEach((photo) => {
+      const adPhotoClone = adPhotoTemplate.cloneNode(true);
+      adPhotoClone.src = `${photo}`;
+      adPhotosList.appendChild(adPhotoClone);
+    });
+  } else {
+    adWorkPiece.querySelector('.popup__photos').remove();
+  }
 };
 
 // Отрисовка объявления по тех заданию
