@@ -1,16 +1,20 @@
 // Задержка отрисовки фильтров
 const RERENDER_DELAY = 500;
 
-// Устранение дребезга
-const debounce = (callback, timeoutDelay = RERENDER_DELAY) => {
-  let timeoutId;
+const throttle = (callback, timeoutDelay = RERENDER_DELAY) => {
+  let timeoutId, lastCallTime;
   return (...rest) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+    const elapsedTime = Date.now() - lastCallTime;
+    const delay = Math.max(timeoutDelay - elapsedTime, 0);
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => {
+      callback(...rest);
+      lastCallTime = Date.now();
+    }, delay);
   };
 };
 
 // Определяет, является ли кнопка Esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export { debounce, isEscapeKey };
+export { throttle, isEscapeKey };
